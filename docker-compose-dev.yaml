@@ -10,6 +10,7 @@ services:
       - 8080:8080
     depends_on:
       - mongodb
+      - redis
     environment:
       - PORT=8080
       - MONGODB_URI=mongodb://mongodb:27017
@@ -25,6 +26,7 @@ services:
       - SCORING_THRESHOLD_LOWER=0f
       - SCORING_THRESHOLD_UPPER=2.4f
       - CLOUDINARY_URL=YOUR URL GOES HERE
+      - REDIS_URL=redis://h:password@redis:6379
 
   frontend:
     build:
@@ -39,6 +41,17 @@ services:
     environment:
       - REACT_APP_API_URL=http://localhost:8080
       - PORT=80
+
+  redis:
+    image: redis:alpine
+    command: redis-server --requirepass password
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/redis-data:/var/lib/redis
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
 
   mongodb:
     image: mongo:4.0-xenial
