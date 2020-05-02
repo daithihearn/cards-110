@@ -10,7 +10,8 @@ services:
       - 8080:8080
     depends_on:
       - mongodb
-    environment: 
+    environment:
+      - PORT=8080
       - MONGODB_URI=mongodb://mongodb:27017
       - MONGODB_DATABASE_NAME=cards-110
       - PASSWORD_ENCODER_SEED=password
