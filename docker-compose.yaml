@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  api:
+    build:
+      context: ./cards-110-api
+    restart: always
+    ports: 
+      - 8080:8080
+    depends_on:
+      - mongodb
+    environment: 
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_DATABASE_NAME=cards-110
+      - PASSWORD_ENCODER_SEED=password
+      - JWT_SECRET=password
+      - SPRING_PROFILES=primary,dev
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=password
+      - SENDGRID_API_KEY=YOUR API KEY GOES HERE
+      - PLAYER_LOGIN_URL=http://localhost:8080/#/autologin
+      - CORS_WHITELIST=
+      - SCORING_THRESHOLD_LOWER=0f
+      - SCORING_THRESHOLD_UPPER=2.4f
+      - CLOUDINARY_URL=YOUR URL GOES HERE
+
+  mongodb:
+    image: mongo:4.0-xenial
+    volumes:
+      - mongo_data:/data/db
+    expose:
+      - 27017
+
+volumes:
+  mongo_data:
+    driver: local
