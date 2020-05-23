@@ -12,8 +12,7 @@ services:
       - mongodb
     environment:
       - PORT=8080
-      - MONGODB_URI=mongodb://mongodb:27017
-      - MONGODB_DATABASE_NAME=cards-110
+      - MONGODB_URI=mongodb://mongodb:27017/cards-110
       - PASSWORD_ENCODER_SEED=password
       - JWT_SECRET=password
       - SPRING_PROFILES=primary,dev
@@ -28,7 +27,7 @@ services:
 
 
   mongodb:
-    image: mongo:4.0-xenial
+    image: mongo:4.2
     volumes:
       - mongo_data:/data/db
     expose:
