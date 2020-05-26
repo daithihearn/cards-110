@@ -3,8 +3,7 @@ version: '3'
 services:
 
   api:
-    build:
-      context: ./cards-110-api
+    image: localhost:5000/cards-110-api
     restart: always
     ports: 
       - 8080:8080
@@ -20,10 +19,15 @@ services:
       - ADMIN_PASSWORD=password
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
       - PLAYER_LOGIN_URL=http://localhost:8080/#/autologin
-      - CORS_WHITELIST=
-      - SCORING_THRESHOLD_LOWER=0f
-      - SCORING_THRESHOLD_UPPER=2.4f
-      - CLOUDINARY_URL=YOUR URL GOES HERE
+      - CORS_WHITELIST=http://localhost:3000
+
+  frontend:
+    image: localhost:5000/cards-110-frontend
+    restart: always
+    ports:
+      - 3000:5000
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
 
 
   mongodb:
