@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
 
@@ -20,14 +20,16 @@ services:
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
       - PLAYER_LOGIN_URL=http://localhost:8080/#/autologin
       - CORS_WHITELIST=http://localhost:3000
+    networks:
+      - cards
 
   frontend:
     image: localhost:5000/cards-110-frontend
     restart: always
     ports:
       - 3000:5000
-    environment:
-      - REACT_APP_API_URL=http://localhost:8080
+    networks: 
+      - cards
 
 
   mongodb:
@@ -36,7 +38,14 @@ services:
       - mongo_data:/data/db
     expose:
       - 27017
+    networks: 
+      - cards
 
 volumes:
   mongo_data:
     driver: local
+
+networks:
+  cards:
+    driver: bridge
+    name: cards
