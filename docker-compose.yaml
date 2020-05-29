@@ -18,7 +18,7 @@ services:
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=password
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
-      - PLAYER_LOGIN_URL=http://localhost:8080/#/autologin
+      - PLAYER_LOGIN_URL=http://localhost:3000/#/autologin
       - CORS_WHITELIST=http://localhost:3000
     networks:
       - cards
