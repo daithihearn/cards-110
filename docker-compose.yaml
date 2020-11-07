@@ -12,24 +12,22 @@ services:
     environment:
       - PORT=8080
       - MONGODB_URI=mongodb://mongodb:27017/cards-110
-      - PASSWORD_ENCODER_SEED=password
-      - JWT_SECRET=password
       - SPRING_PROFILES=primary,dev
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=password
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
       - PLAYER_LOGIN_URL=http://localhost:3000/#/autologin
       - CORS_WHITELIST=http://localhost:3000
+      - AUTH0_AUDIENCE=http://localhost:8080
+      - AUTH0_CLIENT_ID=
     networks:
       - cards
 
-  frontend:
-    image: localhost:5000/cards-110-frontend
-    restart: always
-    ports:
-      - 3000:5000
-    networks: 
-      - cards
+  # frontend:
+  #   image: localhost:5000/cards-110-frontend
+  #   restart: always
+  #   ports:
+  #     - 3000:5000
+  #   networks: 
+  #     - cards
 
 
   mongodb:
