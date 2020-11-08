@@ -7,11 +7,9 @@ services:
     restart: always
     ports: 
       - 8080:8080
-    depends_on:
-      - mongodb
     environment:
       - PORT=8080
-      - MONGODB_URI=mongodb://mongodb:27017/cards-110
+      - MONGODB_URI=mongodb://mongo-node1:27017,mongo-node2:27018,mongo-node3:27019/cards-110
       - SPRING_PROFILES=primary,dev
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
       - PLAYER_LOGIN_URL=http://localhost:3000/#/autologin
@@ -20,6 +18,7 @@ services:
       - AUTH0_CLIENT_ID=
     networks:
       - cards
+      - database
 
   # frontend:
   #   image: localhost:5000/cards-110-frontend
@@ -29,16 +28,6 @@ services:
   #   networks: 
   #     - cards
 
-
-  mongodb:
-    image: mongo:4.2
-    volumes:
-      - mongo_data:/data/db
-    expose:
-      - 27017
-    networks: 
-      - cards
-
 volumes:
   mongo_data:
     driver: local
@@ -47,3 +36,6 @@ networks:
   cards:
     driver: bridge
     name: cards
+  database:
+    external:
+      name: database
