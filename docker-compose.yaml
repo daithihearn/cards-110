@@ -1,38 +1,45 @@
-version: '3'
+version: '3.5'
 
 services:
 
   api:
-    build:
-      context: ./cards-110-api
+    image: localhost:5000/cards-110-api
     restart: always
     ports: 
       - 8080:8080
-    depends_on:
-      - mongodb
     environment:
       - PORT=8080
-      - MONGODB_URI=mongodb://mongodb:27017/cards-110
-      - PASSWORD_ENCODER_SEED=password
-      - JWT_SECRET=password
-      - SPRING_PROFILES=primary,dev
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=password
+      - MONGODB_URI=mongodb://mongo-node1:27017,mongo-node2:27018,mongo-node3:27019/cards-110
+      - SPRING_PROFILES=mongo-auth-password
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
-      - PLAYER_LOGIN_URL=http://localhost:8080/#/autologin
-      - CORS_WHITELIST=
-      - SCORING_THRESHOLD_LOWER=0f
-      - SCORING_THRESHOLD_UPPER=2.4f
-      - CLOUDINARY_URL=YOUR URL GOES HERE
+      - PLAYER_LOGIN_URL=http://localhost:3000/#/autologin
+      - CORS_WHITELIST=http://localhost:3000
+      - AUTH0_AUDIENCE=http://localhost:8080
+      - AUTH0_CLIENT_ID=https://summer-brook-3375.eu.auth0.com/
+      - MONGODB_CLIENT_CERT=
+      - MONGODB_CLIENT_CERT_KEY=
+      - MONGODB_CA_CERT=
+      - MONGODB_CLIENT_COMMON_NAME=
+    networks:
+      - cards
+      - database
 
-
-  mongodb:
-    image: mongo:4.2
-    volumes:
-      - mongo_data:/data/db
-    expose:
-      - 27017
+  # frontend:
+  #   image: localhost:5000/cards-110-frontend
+  #   restart: always
+  #   ports:
+  #     - 3000:5000
+  #   networks: 
+  #     - cards
 
 volumes:
   mongo_data:
     driver: local
+
+networks:
+  cards:
+    driver: bridge
+    name: cards
+  database:
+    external:
+      name: database

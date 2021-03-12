@@ -5,12 +5,12 @@ if "%~1"=="-f" goto api
 
 :frontend
 cd cards-110-frontend
-CALL build.bat
+CALL .\build.bat
 cd ..
 
 :api
 cd cards-110-api
 
-CALL build.bat
+CALL .\build.bat
 
 cd ..
