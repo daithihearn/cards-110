@@ -24,13 +24,13 @@ services:
       - cards
       - database
 
-  # frontend:
-  #   image: localhost:5000/cards-110-frontend
-  #   restart: always
-  #   ports:
-  #     - 3000:5000
-  #   networks: 
-  #     - cards
+  frontend:
+    image: localhost:5000/cards-110-frontend
+    restart: always
+    ports:
+      - 3000:80
+    networks: 
+      - cards
 
 volumes:
   mongo_data:
