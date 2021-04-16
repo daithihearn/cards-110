@@ -27,6 +27,8 @@ services:
   frontend:
     image: localhost:5000/cards-110-frontend
     restart: always
+    environment:
+      - PORT=80
     ports:
       - 3000:80
     networks: 
