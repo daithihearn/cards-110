@@ -9,6 +9,7 @@ services:
       - 8080:8080
     environment:
       - PORT=8080
+      - LOGGING_LEVEL=DEBUG
       - MONGODB_URI=mongodb://mongo-node1:27017,mongo-node2:27018,mongo-node3:27019/cards-110
       - SPRING_PROFILES=mongo-auth-password
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
@@ -20,9 +21,31 @@ services:
       - MONGODB_CLIENT_CERT_KEY=
       - MONGODB_CA_CERT=
       - MONGODB_CLIENT_COMMON_NAME=
+      - REDIS_URL=redis://:password@redis:6379
+      - REDIS_TOPIC=/game
     networks:
       - cards
       - database
+      - redis
+
+  websocket-service:
+    image: localhost:5000/websocket-service
+    restart: always
+    ports: 
+      - 7070:8080
+    environment:
+      - PORT=8080
+      - LOGGING_LEVEL=DEBUG
+      - SPRING_PROFILES=dev
+      - CORS_WHITELIST=http://localhost:3000
+      - AUTH0_AUDIENCE=http://localhost:8080
+      - AUTH0_CLIENT_ID=https://summer-brook-3375.eu.auth0.com/
+      - REDIS_URL=redis://:password@redis:6379
+      - REDIS_TOPIC=/game
+    networks:
+      - cards
+      - database
+      - redis
 
   frontend:
     image: localhost:5000/cards-110-frontend
@@ -34,10 +57,6 @@ services:
     networks: 
       - cards
 
-volumes:
-  mongo_data:
-    driver: local
-
 networks:
   cards:
     driver: bridge
@@ -45,3 +64,6 @@ networks:
   database:
     external:
       name: database
+  redis:
+    external:
+      name: redis
