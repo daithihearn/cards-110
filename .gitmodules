@@ -4,3 +4,6 @@
 [submodule "cards-110-frontend"]
 	path = cards-110-frontend
 	url = git@github.com:daithihearn/cards-110-frontend.git
+[submodule "websocket-service"]
+	path = websocket-service
+	url = git@github.com:daithihearn/websocket-service.git
