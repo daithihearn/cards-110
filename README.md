@@ -1,8 +1,9 @@
 # Cards 110
-This is the top level project for the Cards 110 application. There are two submodules in this application:
+This is the top level project for the Cards 110 application. There are three submodules in this application:
 
 - [cards-110-api](https://github.com/daithihearn/cards-110-api)
 - [cards-110-frontend](https://github.com/daithihearn/cards-110-frontend)
+- [websocket-service](https://github.com/daithihearn/websocket-service)
 
 # Tech Stack
 - Docker Compose

@@ -12,5 +12,9 @@ cd ..
 cd cards-110-api
 
 CALL .\build.bat
+cd ..
+
+cd websocket-service
+CALL .\build.sh
 
 cd ..
