@@ -23,7 +23,7 @@ Followed by:
 
 This will initialise and then download the submodules. Generally it will pull a commit hash rather than a branch. You can switch to the default branch by:
 
-`cd ./cards-110-api && git checkout develop && cd ../cards-110-frontend && git checkout develop`
+`cd ./cards-110-api && git checkout develop && cd ../cards-110-frontend && git checkout develop && cd ../websocket-service && git checkout develop`
 
 # Building
 Running `./build.sh` will build the [frontend](https://github.com/daithihearn/cards-110-frontend), copy the webjar into the API then build the [API](https://github.com/daithihearn/cards-110-api) and install the executable jar into the local maven repo.
