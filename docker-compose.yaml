@@ -62,8 +62,6 @@ networks:
     driver: bridge
     name: cards
   database:
-    external:
-      name: database
+    name: database
   redis:
-    external:
-      name: redis
+    name: redis
