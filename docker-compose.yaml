@@ -11,7 +11,7 @@ services:
       - PORT=8080
       - LOGGING_LEVEL=DEBUG
       - MONGODB_URI=mongodb://mongo-node1:27017,mongo-node2:27018,mongo-node3:27019/cards-110
-      - SPRING_PROFILES_ACTIVE=mongo-auth-password
+      - SPRING_PROFILES_ACTIVE=mongo-auth-password,dev
       - SENDGRID_API_KEY=YOUR API KEY GOES HERE
       - PLAYER_LOGIN_URL=http://localhost:3000/#/autologin
       - CORS_WHITELIST=http://localhost:3000
