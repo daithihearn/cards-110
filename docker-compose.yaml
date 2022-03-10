@@ -22,7 +22,7 @@ services:
       - MONGODB_CLIENT_COMMON_NAME=
       - REDIS_URL=redis://:password@redis:6379
       - REDIS_TOPIC=/game
-      - CLOUDINARY_URL=YOUR API KEY GOES HERE
+      - CLOUDINARY_URL=YOUR CLOUDINARY URL GOES HERE
     networks:
       - cards
       - database
