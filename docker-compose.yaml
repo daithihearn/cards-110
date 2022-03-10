@@ -11,8 +11,7 @@ services:
       - PORT=8080
       - LOGGING_LEVEL=DEBUG
       - MONGODB_URI=mongodb://mongo-node1:27017,mongo-node2:27018,mongo-node3:27019/cards-110
-      - SPRING_PROFILES_ACTIVE=mongo-auth-password,dev
-      - SENDGRID_API_KEY=YOUR API KEY GOES HERE
+      - SPRING_PROFILES_ACTIVE=mongo-auth-password,prod
       - PLAYER_LOGIN_URL=http://localhost:3000/#/autologin
       - CORS_WHITELIST=http://localhost:3000
       - AUTH0_AUDIENCE=http://localhost:8080
@@ -23,6 +22,7 @@ services:
       - MONGODB_CLIENT_COMMON_NAME=
       - REDIS_URL=redis://:password@redis:6379
       - REDIS_TOPIC=/game
+      - CLOUDINARY_URL=YOUR API KEY GOES HERE
     networks:
       - cards
       - database
