@@ -1,0 +1,20 @@
+region: <REGION>
+authtoken: <AUTH_TOKEN>
+tunnels:
+  frontend:
+    proto: http
+    addr: frontend:3000
+    hostname: <FRONTEND_HOSTNAME>
+    bind_tls: true
+
+  api:
+    proto: http
+    addr: api:8080
+    hostname: <API_HOSTNAME>
+    bind_tls: true
+
+  websocket-service:
+    proto: http
+    addr: readarr:8787
+    hostname: <WS_HOSTNAME>
+    bind_tls: true

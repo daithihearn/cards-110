@@ -1,11 +1,26 @@
-version: '3.5'
+version: "3.5"
 
 services:
+  # Ngrok service to expose service via tunnels
+  ngrok:
+    image: ngrok/ngrok:2
+    container_name: ngrok
+    environment:
+      - NGROK_CONFIG=/etc/ngrok.yml
+    volumes:
+      - ./ngrok/ngrok.yml:/etc/ngrok.yml
+    networks:
+      - pirate-stuff
+    depends_on:
+      - api
+      - websocket-service
+      - frontend
+    restart: unless-stopped
 
   api:
     image: localhost:5000/cards-110-api
     restart: always
-    ports: 
+    ports:
       - 8080:8080
     environment:
       - PORT=8080
@@ -31,7 +46,7 @@ services:
   websocket-service:
     image: localhost:5000/websocket-service
     restart: always
-    ports: 
+    ports:
       - 7070:8080
     environment:
       - PORT=8080
@@ -54,7 +69,7 @@ services:
       - PORT=80
     ports:
       - 3000:80
-    networks: 
+    networks:
       - cards
 
 networks:
