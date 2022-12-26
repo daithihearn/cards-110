@@ -3,7 +3,7 @@ version: '3.5'
 services:
   mongo-setup:
     container_name: mongo-setup
-    image: mongo:4.2
+    image: mongo:5
     volumes:
       - ./scripts:/scripts
     restart: "no"
