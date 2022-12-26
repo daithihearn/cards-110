@@ -10,7 +10,7 @@ services:
     volumes:
       - ./ngrok/ngrok.yml:/etc/ngrok.yml
     networks:
-      - pirate-stuff
+      - cards
     depends_on:
       - api
       - websocket-service
