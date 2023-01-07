@@ -1,74 +1,48 @@
 version: "3.5"
 
 services:
-  # Ngrok service to expose service via tunnels
-  ngrok:
-    image: ngrok/ngrok:2
-    container_name: ngrok
-    environment:
-      - NGROK_CONFIG=/etc/ngrok.yml
-    volumes:
-      - ./ngrok/ngrok.yml:/etc/ngrok.yml
+
+  frontend:
+    image: daithihearn/cards-110-frontend
+    container_name: frontend
+    restart: always
+    env_file: frontend.env
+    ports:
+      - 3000:80
     networks:
       - cards
-    depends_on:
-      - api
-      - websocket-service
-      - frontend
-    restart: unless-stopped
-
+  
   api:
-    image: localhost:5000/cards-110-api
+    image: daithihearn/cards-110-api
+    container_name: api
     restart: always
     ports:
       - 8080:8080
-    environment:
-      - PORT=8080
-      - LOGGING_LEVEL=DEBUG
-      - MONGODB_URI=mongodb://mongo-node1:27017,mongo-node2:27018,mongo-node3:27019/cards-110
-      - SPRING_PROFILES_ACTIVE=mongo-auth-password,prod
-      - PLAYER_LOGIN_URL=http://localhost:3000/#/autologin
-      - CORS_WHITELIST=http://localhost:3000
-      - AUTH0_AUDIENCE=http://localhost:8080
-      - AUTH0_CLIENT_ID=https://summer-brook-3375.eu.auth0.com/
-      - MONGODB_CLIENT_CERT=
-      - MONGODB_CLIENT_CERT_KEY=
-      - MONGODB_CA_CERT=
-      - MONGODB_CLIENT_COMMON_NAME=
-      - REDIS_URL=redis://:password@redis:6379
-      - REDIS_TOPIC=/game
-      - CLOUDINARY_URL=YOUR CLOUDINARY URL GOES HERE
+    env_file: api.env
     networks:
       - cards
       - database
-      - redis
 
   websocket-service:
-    image: localhost:5000/websocket-service
+    image: daithihearn/cards-110-websocket-service
+    container_name: websocket-service
     restart: always
     ports:
       - 7070:8080
-    environment:
-      - PORT=8080
-      - LOGGING_LEVEL=DEBUG
-      - SPRING_PROFILES_ACTIVE=dev
-      - CORS_WHITELIST=http://localhost:3000
-      - AUTH0_AUDIENCE=http://localhost:8080
-      - AUTH0_CLIENT_ID=https://summer-brook-3375.eu.auth0.com/
-      - REDIS_URL=redis://:password@redis:6379
-      - REDIS_TOPIC=/game
+    env_file: ws.env
     networks:
       - cards
       - database
-      - redis
 
-  frontend:
-    image: localhost:5000/cards-110-frontend
+  redis:
+    image: bitnami/redis:7.0
+    container_name: redis
     restart: always
     environment:
-      - PORT=80
+      - REDIS_PASSWORD=password
+      - REDIS_AOF_ENABLED=no
     ports:
-      - 3000:80
+      - 6379:6379
     networks:
       - cards
 
@@ -77,6 +51,5 @@ networks:
     driver: bridge
     name: cards
   database:
+    external: true
     name: database
-  redis:
-    name: redis

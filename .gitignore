@@ -2,3 +2,4 @@
 /backups
 backup/
 .DS_Store
+.idea/
