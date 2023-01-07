@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 
 services:
   mongo-setup:
@@ -7,11 +7,11 @@ services:
     volumes:
       - ./scripts:/scripts
     restart: "no"
-    entrypoint: [ "bash", "/scripts/setup.sh", "mongo-node1", "mongo-node2",  "mongo-node3" ]
+    entrypoint:
+      ["bash", "/scripts/setup.sh", "mongo-node1", "mongo-node2", "mongo-node3"]
     networks:
       - database
 
 networks:
   database:
-    external:
-      name: database
+    name: database
