@@ -9,7 +9,7 @@ if [[ "$1" == "" || "$2" == "" || "$3" == "" ]]; then
 fi
 
 echo SETUP.sh time now: `date +"%T" `
-mongo --host $1:27017 <<EOF
+mongosh --host $1:27017 <<EOF
   var cfg = {
     "_id": "rs0",
     "version": 1,
@@ -53,4 +53,4 @@ mongo --host $1:27017 <<EOF
   while (! db.isMaster().ismaster ) { sleep(1000) }
 EOF
 
-mongo --host $1:27017 /scripts/init.js
+mongosh --host $1:27017 /scripts/init.js
