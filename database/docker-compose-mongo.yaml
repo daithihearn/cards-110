@@ -4,7 +4,7 @@ services:
   mongo-node1:
     hostname: mongo-node1
     container_name: mongo-node1
-    image: mongo:5
+    image: mongo:6
     expose:
       - 27017
     ports:
@@ -29,7 +29,7 @@ services:
   mongo-node2:
     hostname: mongo-node2
     container_name: mongo-node2
-    image: mongo:5
+    image: mongo:6
     expose:
       - 27018
     ports:
@@ -54,7 +54,7 @@ services:
   mongo-node3:
     hostname: mongo-node3
     container_name: mongo-node3
-    image: mongo:5
+    image: mongo:6
     expose:
       - 27019
     ports:
